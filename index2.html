@@ -53,13 +53,13 @@
 <script>
     // Adding the modal to the HTML
     $("#openModal").click(function () {
-        $("body").append("<div id='modalBackground' class='fade'></div>");
+        let body = $(body);
+        body.append("<div id='modalBackground' class='fade'></div>");
         let modalBackground = $("#modalBackground");
         setTimeout(function () {
             modalBackground.addClass("showBack");
         }, 150);
-        $("body")
-            .append("<div id='modalWrapper' class='fade'><div id='myModal'><button id='closeModal'>Close the modal</button></div></div>");
+        body.append("<div id='modalWrapper' class='fade'><div id='myModal'><button id='closeModal'>Close the modal</button></div></div>");
         let modalWrapper = $("#modalWrapper");
         setTimeout(function () {
             modalWrapper.addClass("show");
