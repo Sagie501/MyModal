@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyModal</title>
+    <style>
+        .fade {
+            opacity: 0;
+            transition: opacity .15s linear;
+        }
+        .show {
+            opacity: 1;
+        }
+        .showBack {
+            opacity: .5;
+        }
+        #modalBackground {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2222;
+            background-color: black;
+        }
+        #modalWrapper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2223;
+        }
+        #myModal {
+            position: relative;
+            background-color: red;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center;">
+    <h1>Hello World!</h1>
+    <button id="openModal">Click Me to Open the Modal</button>
+    <div>
+        <p>
+            Bla bla.. a lot of text...
+        </p>
+    </div>
+</div>
+<script src="jquery-3.2.1.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script>
+    // Adding the modal to the HTML
+    $("#openModal").click(function () {
+        $("body").append("<div id='modalBackground' class='fade'></div>");
+        let modalBackground = $("#modalBackground");
+        setTimeout(function () {
+            modalBackground.addClass("showBack");
+        }, 150);
+        $("body")
+            .append("<div id='modalWrapper' class='fade'><div id='myModal'><button id='closeModal'>Close the modal</button></div></div>");
+        let modalWrapper = $("#modalWrapper");
+        setTimeout(function () {
+            modalWrapper.addClass("show");
+        }, 150);
+        $("#closeModal").click(function () {
+            modalWrapper.removeClass("show");
+            setTimeout(function () {
+                modalWrapper.draggable("destroy");
+                modalWrapper.remove();
+                modalBackground.removeClass("showBack");
+                setTimeout(function () {
+                    modalBackground.remove();
+                }, 150);
+            }, 150);
+        });
+        modalWrapper.draggable({
+            cursor: "move",
+            start: function() {
+                modalWrapper.css("transform", "translate(0, 0)")
+            },
+            containment: "window"
+        });
+    });
+</script>
+</body>
+</html>
